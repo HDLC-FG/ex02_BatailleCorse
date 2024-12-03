@@ -1,32 +1,39 @@
-﻿namespace ex02_BatailleCorse
+﻿using static ex02_BatailleCorse.JeuDeCartes;
+
+namespace ex02_BatailleCorse
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var joueur1 = new Anneau<Maillon<int>>();    //joueur 1 = 16 cartes
-            var joueur2 = new Anneau<Maillon<int>>();    //joueur 2 = 16 cartes
-            
-            var random = new Random();
-            joueur1.AjouterALaFin(new Maillon<int>(random.Next(1, 9)));
-            joueur1.AjouterALaFin(new Maillon<int>(random.Next(1, 9)));
-            joueur1.AjouterALaFin(new Maillon<int>(random.Next(1, 9)));
-            joueur1.AjouterALaFin(new Maillon<int>(random.Next(1, 9)));
+            var joueur1 = new Anneau<Maillon<Carte>>();    //joueur 1 = 16 cartes
+            joueur1.nom = "Maxime";
+            var joueur2 = new Anneau<Maillon<Carte>>();    //joueur 2 = 16 cartes
+            joueur2.nom = "Lucie";
+            var tas = new Anneau<Maillon<Carte>>();    //joueur 2 = 16 cartes
 
-            //var test = new ListChaineGeneric<int>();
-            //test.Ajouter(1);
-            //test.Ajouter(2);
-            //test.Ajouter(3);
+            var jeuDeCarte = new JeuDeCartes();
+            for (int i = 0; i < 16; i++)
+            {
+                joueur1.AjouterALaFin(new Maillon<Carte>(jeuDeCarte.GetRandomCarte()));
+                joueur2.AjouterALaFin(new Maillon<Carte>(jeuDeCarte.GetRandomCarte()));
+            }
 
-            //var carte = new Maillon<int>();
-            //carte.Valeur = random.Next(1, 9);
-            //carte.AjouterALaFin(carte);
-
-            //for (int i = 1; i <= 16; i++)
+            //while (true)
             //{
-            //    carte.AjouterALaFin(random.Next(1, 9));
-            //    joueur1.AjouterALaFin(carte);   // un nombre en 1 et 8
-            //    //joueur2.AjouterALaFin(random.Next(1, 9));   // un nombre en 1 et 8
+            //    if(!JouerUneCarte(joueur1, tas, out Maillon<Carte> cartej1)) { break; }
+            //    if(!JouerUneCarte(joueur2, tas, out Maillon<Carte> cartej2)) { break; }
+
+            //    if((int)cartej1.Valeur == 0
+            //        || (int)cartej1.Valeur == 4
+            //        || (int)cartej1.Valeur == 5
+            //        || (int)cartej1.Valeur == 6
+            //        || (int)cartej1.Valeur == 7)
+            //    {
+
+            //    }
+
+            //    Console.WriteLine("Hello, World!");
             //}
 
             Console.WriteLine("Hello, World!");

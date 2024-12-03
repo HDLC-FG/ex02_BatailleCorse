@@ -3,7 +3,8 @@
     public class Anneau<T>
     {
         private int nbElement = 0;
-        public Maillon<T> Element { get; set; }
+        public string nom { get; set; }
+        public Maillon<T>? Element { get; set; }
 
         public void AjouterALaFin(T element)
         {
@@ -13,8 +14,7 @@
             }
             else
             {
-                Maillon<T> precedent = Element;
-                Maillon<T> maillon = Element.Suivant;
+                Maillon<T>? maillon = Element;
                 for (int i = 0; i < nbElement; i++)
                 {
                     if (maillon?.Suivant != null)
@@ -23,7 +23,7 @@
                     }
                     else
                     {
-                        precedent.Suivant = new Maillon<T>(element);
+                        maillon.Suivant = new Maillon<T>(element);
                     }
                 }
             }
