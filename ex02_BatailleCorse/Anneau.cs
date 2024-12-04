@@ -10,7 +10,7 @@
         {
             if(Element == null)
             {
-                Element = new Maillon<T>(element);
+                Element = new Maillon<T> { Valeur = element };
             }
             else
             {
@@ -23,14 +23,14 @@
                     }
                     else
                     {
-                        maillon.Suivant = new Maillon<T>(element);
+                        maillon.Suivant = new Maillon<T> { Valeur = element };
                     }
                 }
             }
             nbElement++;
         }
 
-        public void AjouterAnneauLaFin(Anneau<T> anneau)
+        public void AjouterAnneauALaFin(Anneau<T> anneau)
         {
             if(anneau == null) return;
             if (Element == null)
@@ -55,35 +55,35 @@
             nbElement += anneau.nbElement;
         }
 
-        public void RetirerAnneau(Anneau<T> element)
-        {
-            for (int i = 0; i < element.nbElement; i++)
-            {
-                nbElement--;
-                for (int j = 0; j < nbElement; j++)
-                {
-                    var currentElement = RetirerPremier();
-                    if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
-                }
-            }
-        }
+        //public void RetirerAnneau(Anneau<T> element)
+        //{
+        //    for (int i = 0; i < element.nbElement; i++)
+        //    {
+        //        nbElement--;
+        //        for (int j = 0; j < nbElement; j++)
+        //        {
+        //            var currentElement = RetirerPremier();
+        //            if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
+        //        }
+        //    }
+        //}
 
-        public void Retirer(T element)
-        {
-            nbElement--;
-            for (int i = 0; i < nbElement; i++)
-            {
-                var currentElement = RetirerPremier();
-                if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
-            }
-        }
+        //public void Retirer(T element)
+        //{
+        //    nbElement--;
+        //    for (int i = 0; i < nbElement; i++)
+        //    {
+        //        var currentElement = RetirerPremier();
+        //        if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
+        //    }
+        //}
 
         public T? RetirerPremier()
         {
-            nbElement--;
             if (Element == null) return default;
             var valuePremier = Element.Valeur;
             Element = Element.Suivant;
+            nbElement--;
             return valuePremier;
         }
     }
