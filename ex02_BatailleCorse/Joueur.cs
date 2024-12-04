@@ -1,4 +1,6 @@
-﻿namespace ex02_BatailleCorse
+﻿using static ex02_BatailleCorse.Enums;
+
+namespace ex02_BatailleCorse
 {
     internal class Joueur
     {
@@ -28,40 +30,58 @@
             }
         }
 
-        public bool Defis(Carte cartej1, Joueur joueur2, Anneau<Carte> tas)
+        public bool Defis(Carte carteChallengeur, Joueur joueurChallenge, Anneau<Carte> tas)
         {
-            Carte? cartej2;
-            bool j1Gagne = true;
+            Carte? carteChallenge;
+            bool challengeurGagne = true;
 
-            for (int i = 0; i < cartej1.GetNombreDeTentatives(); i++)
+            for (int i = 0; i < carteChallengeur.GetNombreDeTentatives(); i++)
             {
-                cartej2 = joueur2.JouerUneCarte(tas);
-                if (cartej2 == null) break;
+                carteChallenge = joueurChallenge.JouerUneCarte(tas);
+                if (carteChallenge == null) return true;
 
-                if (cartej2.GetTete())
+                if (carteChallenge.GetTete())
                 {
-                    j1Gagne = false;
+                    challengeurGagne = false;
                     break;
                 }
             }
 
-            if(j1Gagne)
+            if(challengeurGagne)
             {
                 Cartes.AjouterAnneauALaFin(tas);
-                Console.WriteLine("Le défi est gagné ! " + Nom + " remporte " + tas.nbElement + " ! A " + joueur2.Nom + " de jouer");
+                Console.WriteLine("Le défi est gagné ! " + Nom + " remporte " + tas.nbElement + " cartes !");
                 tas.Element = null;
-                tas.nbElement = 0;
-                return true;    //j1 a gagne, j2 doit jouer
-            }
-            else
-            {
-                joueur2.Cartes.AjouterAnneauALaFin(tas);
-                Console.WriteLine("Le défi est gagné ! " + joueur2.Nom + " remporte " + tas.nbElement + " ! A " + Nom + " de jouer");
-                tas.Element = null;
-                tas.nbElement = 0;
-                return false;   //j2 a gagne, j1 doit rejouer
+                tas.nbElement = 0;   //le challengeur a gagné, à lui de rejouer
 
+                //var joueurTmp = joueur1;
+                //    //joueur1 = joueur2;
+                //    //joueur2 = joueurTmp;
             }
+
+            return false;
+            //else
+            //{
+            //    joueurChallenge.Cartes.AjouterAnneauALaFin(tas);
+            //    Console.WriteLine("Le défi est gagné ! " + joueurChallenge.Nom + " remporte " + tas.nbElement + " cartes !");
+            //    tas.Element = null;
+            //    tas.nbElement = 0;
+            //    return false;   //j2 a gagne, j1 doit rejouer
+
+            //}
+        }
+
+        private static Random random = new Random();
+        private static Array? enumType;
+        private static Array? enumCouleur;
+
+        public static Carte GetRandomCarte()
+        {
+            enumType = Enum.GetValues(typeof(Valeur));
+            enumCouleur = Enum.GetValues(typeof(Couleur));
+            var type = enumType?.GetValue(random.Next(0, 8));
+            var couleur = enumCouleur?.GetValue(random.Next(0, 3));
+            return new Carte((Valeur)type, (Couleur)couleur);
         }
     }
 }
