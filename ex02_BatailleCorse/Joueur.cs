@@ -4,6 +4,10 @@ namespace ex02_BatailleCorse
 {
     internal class Joueur
     {
+        private static Random random = new Random();
+        private static Array? enumType;
+        private static Array? enumCouleur;
+
         public Anneau<Carte> Cartes { get; set; }
         public string Nom { get; set; }
         
@@ -30,7 +34,7 @@ namespace ex02_BatailleCorse
             }
         }
 
-        public bool Defis(Carte carteChallengeur, Joueur joueurChallenge, Anneau<Carte> tas)
+        public bool Defis(Carte carteChallengeur, ref Joueur joueurChallengeur, ref Joueur joueurChallenge, Anneau<Carte> tas)
         {
             Carte? carteChallenge;
             bool challengeurGagne = true;
@@ -49,31 +53,18 @@ namespace ex02_BatailleCorse
 
             if(challengeurGagne)
             {
-                Cartes.AjouterAnneauALaFin(tas);
-                Console.WriteLine("Le défi est gagné ! " + Nom + " remporte " + tas.nbElement + " cartes !");
+                joueurChallengeur.Cartes.AjouterAnneauALaFin(tas);
+                Console.WriteLine("Le défi est gagné ! " + joueurChallengeur.Nom + " remporte " + tas.nbElement + " cartes !");
                 tas.Element = null;
-                tas.nbElement = 0;   //le challengeur a gagné, à lui de rejouer
+                tas.nbElement = 0;
 
-                //var joueurTmp = joueur1;
-                //    //joueur1 = joueur2;
-                //    //joueur2 = joueurTmp;
+                var joueurTmp = joueurChallenge;
+                joueurChallenge = joueurChallengeur;
+                joueurChallengeur = joueurTmp;
             }
 
             return false;
-            //else
-            //{
-            //    joueurChallenge.Cartes.AjouterAnneauALaFin(tas);
-            //    Console.WriteLine("Le défi est gagné ! " + joueurChallenge.Nom + " remporte " + tas.nbElement + " cartes !");
-            //    tas.Element = null;
-            //    tas.nbElement = 0;
-            //    return false;   //j2 a gagne, j1 doit rejouer
-
-            //}
         }
-
-        private static Random random = new Random();
-        private static Array? enumType;
-        private static Array? enumCouleur;
 
         public static Carte GetRandomCarte()
         {
