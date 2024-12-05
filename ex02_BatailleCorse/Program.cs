@@ -1,4 +1,4 @@
-﻿using static ex02_BatailleCorse.Enums;
+using static ex02_BatailleCorse.Enums;
 
 namespace ex02_BatailleCorse
 {
@@ -18,11 +18,23 @@ namespace ex02_BatailleCorse
             //    joueur3.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
             //}
 
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.As, Couleur.Coeur));
-            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Huit, Couleur.Trefle));
-            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Pique));
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.As, Couleur.Pique));
-            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+            //Jeu de test 1 : ok
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.As, Couleur.Coeur));
+            //joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Huit, Couleur.Trefle));
+            //joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Pique));
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.As, Couleur.Pique));
+            //joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+
+            //Jeu de test 2 : ok
+            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
+            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
+            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Trefle));
+            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Neuf, Couleur.Trefle));
+            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Huit, Couleur.Coeur));
+            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Carreau));
+            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Trefle));
 
             var joueurs = new Anneau<Joueur>();
             joueurs.AjouterALaFin(joueur1);
@@ -79,6 +91,13 @@ namespace ex02_BatailleCorse
                         joueurs.AjouterALaFin(j2);
                         j2 = joueurs.RetirerPremier();
                     }
+                }
+                else
+                {
+                    joueurs.AjouterALaFin(j1);
+                    j1 = joueurs.RetirerPremier();
+                    joueurs.AjouterALaFin(j2);
+                    j2 = joueurs.RetirerPremier();
                 }
 
                 joueurs.AjouterALaFin(j1);
