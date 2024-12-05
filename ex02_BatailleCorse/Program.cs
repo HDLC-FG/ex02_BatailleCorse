@@ -53,7 +53,7 @@ namespace ex02_BatailleCorse
                     if (cartej1 == null)
                     {
                         Console.WriteLine(j1.Nom + " n'a plus de cartes ! Elimination !");
-                        if(joueurs.nbElement > 0)
+                        if (joueurs.nbElement > 0)
                         {
                             j1 = j2;
                             j2 = joueurs.RetirerPremier();
@@ -76,29 +76,29 @@ namespace ex02_BatailleCorse
                         if (joueurs.nbElement > 0)
                         {
                             j2 = joueurs.RetirerPremier();
-                            if(tas.LireDernier().IsTete()) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                            if (tas.LireDernier().IsTete()) Joueur.Suivant(joueurs, ref j1, ref j2);
                         }
                         else
                         {
                             Console.WriteLine(j1.Nom + " gagne !");
-                            if(joueurs.nbElement == 0) break;
+                            if (joueurs.nbElement == 0) break;
                         }
                     }
                     else if (nouveauDefi.Value)
                     {
-                        if(joueurs.nbElement > 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                        if (joueurs.nbElement > 0) Joueur.Suivant(joueurs, ref j1, ref j2);
                     }
                     else
                     {
-                        if (joueurs.nbElement == 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                        if (joueurs.nbElement == 0) Joueur.Suivant(joueurs, ref j1, ref j2);
                     }
                 }
                 else
                 {
-                    if (joueurs.nbElement > 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                    if (joueurs.nbElement > 0) Joueur.Suivant(joueurs, ref j1, ref j2);
                 }
 
-                Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                Joueur.Suivant(joueurs, ref j1, ref j2);
             }
         }
     }

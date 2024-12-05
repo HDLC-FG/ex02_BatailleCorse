@@ -68,9 +68,9 @@ namespace ex02_BatailleCorse
             return nouveauDefi;
         }
 
-        public static void PasserUnJoueur(Anneau<Joueur> joueurs, ref Joueur? j1, ref Joueur? j2)
+        public static void Suivant(Anneau<Joueur> joueurs, ref Joueur? j1, ref Joueur? j2)
         {
-            if(joueurs.nbElement == 0)
+            if (joueurs.nbElement == 0)
             {
                 //2 joueurs
                 joueurs.AjouterALaFin(j2);
