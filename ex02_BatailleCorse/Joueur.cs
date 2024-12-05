@@ -17,10 +17,6 @@ namespace ex02_BatailleCorse
             Nom = nom;
         }
 
-        public Joueur()
-        {
-        }
-
         public Carte? JouerUneCarte(Anneau<Carte> tas, string tentative = "")
         {
             if (Cartes.nbElement <= 0) return null;
