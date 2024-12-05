@@ -68,15 +68,15 @@
         //    }
         //}
 
-        //public void Retirer(T element)
-        //{
-        //    nbElement--;
-        //    for (int i = 0; i < nbElement; i++)
-        //    {
-        //        var currentElement = RetirerPremier();
-        //        if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
-        //    }
-        //}
+        //si pas utilise a supprimer
+        public void Retirer(T element)
+        {
+            for (int i = 0; i < nbElement; i++)
+            {
+                var currentElement = RetirerPremier();
+                if (currentElement != null && !currentElement.Equals(element)) AjouterALaFin(currentElement);
+            }
+        }
 
         public T? RetirerPremier()
         {
@@ -85,6 +85,18 @@
             Element = Element.Suivant;
             nbElement--;
             return valuePremier;
+        }
+
+        public T? LireDernier()
+        {
+            Maillon<T>? maillon = Element;
+
+            for (int i = 1; i < nbElement; i++)
+            {
+                maillon = maillon != null ? maillon.Suivant : maillon;
+            }
+
+            return maillon.Valeur;
         }
     }
 }

@@ -4,9 +4,6 @@ namespace ex02_BatailleCorse
 {
     public class Carte
     {
-        //private Random random;
-        //private Array? enumType;
-        //private Array? enumCouleur;
         public Valeur Valeur { get; set; }
         public Couleur Couleur { get; set; }
 
@@ -16,21 +13,9 @@ namespace ex02_BatailleCorse
             Couleur = couleur;
         }
 
-
-
-        //public Carte()
-        //{
-        //    random = new Random();
-        //    enumType = Enum.GetValues(typeof(Valeur));
-        //    enumCouleur = Enum.GetValues(typeof(Couleur));
-        //}
-
-        //public Carte GetRandomCarte()
-        //{
-        //    var type = enumType?.GetValue(random.Next(0, 8));
-        //    var couleur = enumCouleur?.GetValue(random.Next(0, 3));
-        //    return new Carte { Valeur = (Valeur)type, Couleur = (Couleur)couleur };
-        //}
+        public Carte()
+        {
+        }
 
         public int GetNombreDeTentatives()
         {
@@ -49,7 +34,7 @@ namespace ex02_BatailleCorse
             }
         }
 
-        public bool GetTete()
+        public bool IsTete()
         {
             switch (Valeur)
             {
