@@ -17,13 +17,13 @@ namespace ex02_BatailleCorse
             Nom = nom;
         }
 
-        public Carte? JouerUneCarte(Anneau<Carte> tas, string tentative = "")
+        public Carte? JouerUneCarte(Anneau<Carte> tas)
         {
             if (Cartes.nbElement <= 0) return null;
             var carte = Cartes.RetirerPremier();
             if (carte != null)
             {
-                Console.WriteLine(Nom + " joue un " + carte.Valeur + " de " + carte.Couleur + " ! " + tentative + " " + Nom + " a " + Cartes.nbElement + " cartes");
+                Console.WriteLine(Nom + " joue un " + carte.Valeur + " de " + carte.Couleur + " !");
                 tas.AjouterALaFin(carte);
                 return carte;
             }
@@ -43,7 +43,7 @@ namespace ex02_BatailleCorse
 
             for (int i = 0; i < carteChallengeur.GetNombreDeTentatives(); i++)
             {
-                carteChallenge = joueurChallenge.JouerUneCarte(tas, (i + 1) + " sur " + carteChallengeur.GetNombreDeTentatives());
+                carteChallenge = joueurChallenge.JouerUneCarte(tas);
                 if (carteChallenge == null) return null;
 
                 if (carteChallenge.IsTete())
