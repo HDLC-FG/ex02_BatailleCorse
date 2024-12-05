@@ -1,4 +1,4 @@
-using static ex02_BatailleCorse.Enums;
+﻿using static ex02_BatailleCorse.Enums;
 
 namespace ex02_BatailleCorse
 {
@@ -11,12 +11,12 @@ namespace ex02_BatailleCorse
             var joueur3 = new Joueur("J3 - Mélanie");
             var tas = new Anneau<Carte>();
 
-            //for (int i = 0; i < 16; i++)
-            //{
-            //    joueur1.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
-            //    joueur2.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
-            //    joueur3.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
-            //}
+            for (int i = 0; i < 8; i++)
+            {
+                joueur1.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
+                joueur2.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
+                joueur3.Cartes.AjouterALaFin(Joueur.GetRandomCarte());
+            }
 
             //Jeu de test 1 : ok
             //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.As, Couleur.Coeur));
@@ -26,15 +26,15 @@ namespace ex02_BatailleCorse
             //joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
 
             //Jeu de test 2 : ok
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
-            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
-            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
-            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Trefle));
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Neuf, Couleur.Trefle));
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
-            joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Huit, Couleur.Coeur));
-            joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Carreau));
-            joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Trefle));
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
+            //joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Carreau));
+            //joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+            //joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Roi, Couleur.Trefle));
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Neuf, Couleur.Trefle));
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Coeur));
+            //joueur2.Cartes.AjouterALaFin(new Carte(Valeur.Huit, Couleur.Coeur));
+            //joueur1.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Carreau));
+            //joueur3.Cartes.AjouterALaFin(new Carte(Valeur.Sept, Couleur.Trefle));
 
             var joueurs = new Anneau<Joueur>();
             joueurs.AjouterALaFin(joueur1);
@@ -44,6 +44,7 @@ namespace ex02_BatailleCorse
             Carte? cartej1 = new Carte();
             Joueur? j1 = joueurs.RetirerPremier();
             Joueur? j2 = joueurs.RetirerPremier();
+
             while (true)
             {
                 if (tas.Element == null || !tas.LireDernier().IsTete())
@@ -68,42 +69,36 @@ namespace ex02_BatailleCorse
 
                 if (tas.Element != null && tas.LireDernier().IsTete())
                 {
-                    var nouveauDefis = j1.Defis(cartej1, joueurs, j1, j2, tas);
-                    if (!nouveauDefis.HasValue)
+                    var nouveauDefi = j1.Defi(joueurs, j2, tas);
+                    if (!nouveauDefi.HasValue)
                     {
                         Console.WriteLine(j2.Nom + " n'a plus de carte ! Elimination !");
                         if (joueurs.nbElement > 0)
                         {
-                            j1 = j2;
                             j2 = joueurs.RetirerPremier();
+                            if(tas.LireDernier().IsTete()) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
                         }
                         else
                         {
                             Console.WriteLine(j1.Nom + " gagne !");
-                            break;
+                            if(joueurs.nbElement == 0) break;
                         }
-                        continue;
                     }
-                    else if (!nouveauDefis.Value)
+                    else if (nouveauDefi.Value)
                     {
-                        joueurs.AjouterALaFin(j1);
-                        j1 = joueurs.RetirerPremier();
-                        joueurs.AjouterALaFin(j2);
-                        j2 = joueurs.RetirerPremier();
+                        if(joueurs.nbElement > 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
+                    }
+                    else
+                    {
+                        if (joueurs.nbElement == 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
                     }
                 }
                 else
                 {
-                    joueurs.AjouterALaFin(j1);
-                    j1 = joueurs.RetirerPremier();
-                    joueurs.AjouterALaFin(j2);
-                    j2 = joueurs.RetirerPremier();
+                    if (joueurs.nbElement > 0) Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
                 }
 
-                joueurs.AjouterALaFin(j1);
-                j1 = joueurs.RetirerPremier();
-                joueurs.AjouterALaFin(j2);
-                j2 = joueurs.RetirerPremier();
+                Joueur.PasserUnJoueur(joueurs, ref j1, ref j2);
             }
         }
     }

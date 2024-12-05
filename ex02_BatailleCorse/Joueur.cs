@@ -38,12 +38,12 @@ namespace ex02_BatailleCorse
             }
         }
 
-        public bool? Defis(Carte carteChallengeur, Anneau<Joueur> joueurs, Joueur joueurChallengeur, Joueur joueurChallenge, Anneau<Carte> tas)
+        public bool? Defi(Anneau<Joueur> joueurs, Joueur joueurChallenge, Anneau<Carte> tas)
         {
-            //return true si le challengeur (j1) gagne, false si le challengé (j2) gagne et null si j2 n'a plus de cartes
+            //return true si la challengé pose une tete et provoque un nouveau défi, false si pas de nouveau défi et null si le challengé est éliminé
             Carte? carteChallenge;
-            carteChallengeur = tas.LireDernier();
-            bool challengeurGagne = true;
+            var carteChallengeur = tas.LireDernier();
+            bool nouveauDefi = false;
 
             for (int i = 0; i < carteChallengeur.GetNombreDeTentatives(); i++)
             {
@@ -52,20 +52,40 @@ namespace ex02_BatailleCorse
 
                 if (carteChallenge.IsTete())
                 {
-                    challengeurGagne = false;
+                    nouveauDefi = true;
                     break;
                 }
             }
 
-            if (challengeurGagne)
+            if (!nouveauDefi)
             {
-                joueurChallengeur.Cartes.AjouterAnneauALaFin(tas);
-                Console.WriteLine("Le défi est gagné ! " + joueurChallengeur.Nom + " remporte " + tas.nbElement + " cartes !\n");
+                Cartes.AjouterAnneauALaFin(tas);
+                Console.WriteLine("Le défi est gagné ! " + Nom + " remporte " + tas.nbElement + " cartes !\n");
                 tas.Element = null;
                 tas.nbElement = 0;
             }
 
-            return challengeurGagne;
+            return nouveauDefi;
+        }
+
+        public static void PasserUnJoueur(Anneau<Joueur> joueurs, ref Joueur? j1, ref Joueur? j2)
+        {
+            if(joueurs.nbElement == 0)
+            {
+                //2 joueurs
+                joueurs.AjouterALaFin(j2);
+                joueurs.AjouterALaFin(j1);
+                j1 = joueurs.RetirerPremier();
+                j2 = joueurs.RetirerPremier();
+            }
+            else
+            {
+                //3 joueurs et plus
+                joueurs.AjouterALaFin(j1);
+                joueurs.AjouterALaFin(j2);
+                j1 = joueurs.RetirerPremier();
+                j2 = joueurs.RetirerPremier();
+            }
         }
 
         public static Carte GetRandomCarte()
