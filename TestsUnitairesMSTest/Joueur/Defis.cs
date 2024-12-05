@@ -39,7 +39,6 @@ namespace TestsUnitairesMSTest.Joueur
             var joueurs = new Anneau<ex02_BatailleCorse.Joueur>();
             joueurs.AjouterALaFin(joueur1);
             joueurs.AjouterALaFin(joueur2);
-            //joueurs.AjouterALaFin(joueur3);
 
             joueur1.JouerUneCarte(tas);
 
