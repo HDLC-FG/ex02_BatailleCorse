@@ -10,18 +10,10 @@ namespace TestsUnitairesMSTest.Anneau
         public void T01_AjouterAnneauLaFin_Element_IsNull_AddCarte()
         {
             var anneau = new Anneau<Carte>();
-            var anneauAAjouter = new Anneau<Carte>
-            {
-                Element = new Maillon<Carte>
-                {
-                    Suivant = new Maillon<Carte>
-                    {
-                        Valeur = new Carte(Valeur.As, Couleur.Pique)
-                    },
-                    Valeur = new Carte(Valeur.Dame, Couleur.Coeur)
-                },
-                nbElement = 2
-            };
+            var anneauAAjouter = new Anneau<Carte>(
+                new Maillon<Carte>(new Carte(Valeur.Dame, Couleur.Coeur),
+                new Maillon<Carte>(new Carte(Valeur.As, Couleur.Pique)))
+            );
 
             anneau.AjouterAnneauALaFin(anneauAAjouter);
 

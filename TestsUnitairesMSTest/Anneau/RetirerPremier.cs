@@ -21,14 +21,7 @@ namespace TestsUnitairesMSTest.Anneau
         [TestMethod]
         public void T02_RetirerPremier_SingleElement_ReturnElementIsNull()
         {
-            var anneau = new Anneau<Carte>
-            {
-                Element = new Maillon<Carte>
-                {
-                    Valeur = new Carte(Valeur.Valet, Couleur.Pique)
-                },
-                nbElement = 1
-            };
+            var anneau = new Anneau<Carte>(new Maillon<Carte>(new Carte(Valeur.Valet, Couleur.Pique)));
             var carte = new Carte(Valeur.As, Couleur.Coeur);
 
             var result = anneau.RetirerPremier();

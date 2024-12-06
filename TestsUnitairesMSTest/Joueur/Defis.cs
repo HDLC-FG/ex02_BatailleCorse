@@ -21,7 +21,7 @@ namespace TestsUnitairesMSTest.Joueur
 
             joueur1.JouerUneCarte(tas);
 
-            var nouveauDefi = joueur1.Defi(joueurs, joueur2, tas);
+            var nouveauDefi = joueur1.Defi(joueur2, joueurs, tas);
 
             Assert.IsTrue(nouveauDefi);
         }
@@ -42,7 +42,7 @@ namespace TestsUnitairesMSTest.Joueur
 
             joueur1.JouerUneCarte(tas);
 
-            var nouveauDefi = joueur1.Defi(joueurs, joueur2, tas);
+            var nouveauDefi = joueur1.Defi(joueur2, joueurs, tas);
 
             Assert.IsFalse(nouveauDefi);
         }

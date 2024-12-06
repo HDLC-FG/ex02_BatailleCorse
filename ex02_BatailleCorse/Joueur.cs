@@ -5,8 +5,8 @@ namespace ex02_BatailleCorse
     public class Joueur
     {
         private static Random random = new Random();
-        private static Array? enumType;
-        private static Array? enumCouleur;
+        private static Array? enumType = Enum.GetValues(typeof(Valeur));
+        private static Array? enumCouleur = Enum.GetValues(typeof(Couleur));
 
         public Anneau<Carte> Cartes { get; set; }
         public string Nom { get; set; }
@@ -34,12 +34,12 @@ namespace ex02_BatailleCorse
             }
         }
 
-        public bool? Defi(Anneau<Joueur> joueurs, Joueur joueurChallenge, Anneau<Carte> tas)
+        public bool? Defi(Joueur joueurChallenge, Anneau<Joueur> joueurs, Anneau<Carte> tas)
         {
             //return true si la challengé pose une tete et provoque un nouveau défi, false si pas de nouveau défi et null si le challengé est éliminé
             Carte? carteChallenge;
-            var carteChallengeur = tas.LireDernier();
             bool nouveauDefi = false;
+            var carteChallengeur = tas.LireDernier();
 
             for (int i = 0; i < carteChallengeur.GetNombreDeTentatives(); i++)
             {
@@ -64,30 +64,8 @@ namespace ex02_BatailleCorse
             return nouveauDefi;
         }
 
-        public static void Suivant(Anneau<Joueur> joueurs, ref Joueur? j1, ref Joueur? j2)
-        {
-            if (joueurs.nbElement == 0)
-            {
-                //2 joueurs
-                joueurs.AjouterALaFin(j2);
-                joueurs.AjouterALaFin(j1);
-                j1 = joueurs.RetirerPremier();
-                j2 = joueurs.RetirerPremier();
-            }
-            else
-            {
-                //3 joueurs et plus
-                joueurs.AjouterALaFin(j1);
-                joueurs.AjouterALaFin(j2);
-                j1 = joueurs.RetirerPremier();
-                j2 = joueurs.RetirerPremier();
-            }
-        }
-
         public static Carte GetRandomCarte()
         {
-            enumType = Enum.GetValues(typeof(Valeur));
-            enumCouleur = Enum.GetValues(typeof(Couleur));
             var type = enumType?.GetValue(random.Next(0, 8));
             var couleur = enumCouleur?.GetValue(random.Next(0, 3));
             return new Carte((Valeur)type, (Couleur)couleur);

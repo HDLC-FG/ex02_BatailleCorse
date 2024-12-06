@@ -5,11 +5,23 @@
         public int nbElement = 0;
         public Maillon<T>? Element { get; set; }
 
+        public Anneau()
+        {
+            nbElement = 0;
+            Element = null;
+        }
+
+        public Anneau(Maillon<T>? element)
+        {
+            nbElement++;
+            Element = element;
+        }
+
         public void AjouterALaFin(T element)
         {
             if(Element == null)
             {
-                Element = new Maillon<T> { Valeur = element };
+                Element = new Maillon<T>(element);
             }
             else
             {
@@ -22,7 +34,7 @@
                     }
                     else
                     {
-                        maillon.Suivant = new Maillon<T> { Valeur = element };
+                        maillon.Suivant = new Maillon<T>(element);
                     }
                 }
             }
@@ -73,6 +85,26 @@
             }
 
             return maillon.Valeur;
+        }
+
+        public void Suivant(ref T? j1, ref T? j2)
+        {
+            if (nbElement == 0)
+            {
+                //2 éléments dans l'anneau
+                AjouterALaFin(j2);
+                AjouterALaFin(j1);
+                j1 = RetirerPremier();
+                j2 = RetirerPremier();
+            }
+            else
+            {
+                //3 éléments dans l'anneau et plus
+                AjouterALaFin(j1);
+                AjouterALaFin(j2);
+                j1 = RetirerPremier();
+                j2 = RetirerPremier();
+            }
         }
     }
 }
